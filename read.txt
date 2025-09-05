@@ -1,0 +1,28 @@
+Description
+
+When using The Events Calendar: Event Tickets (Plus) with WooCommerce, paid ticket orders land in the Processing status instead of being marked as Completed.
+
+Expected behavior:
+Because tickets are virtual, they should not require manual processing or shipping. Once WooCommerce confirms payment, the order should be set to Completed so that tickets are generated and sent without manual intervention.
+
+Current behavior:
+	•	Tickets are flagged as virtual products.
+	•	WooCommerce logic requires products to be virtual + downloadable to skip processing.
+	•	Result: orders with only tickets remain in Processing, requiring admin action to complete.
+
+⸻
+
+Proposed Solution
+
+Introduce a way for Event Tickets to explicitly tell WooCommerce that ticket products do not require processing. Possible implementations:
+	•	Add a filter like tribe_tickets_wc_needs_processing that defaults to false for ticket products.
+	•	Or automatically mark ticket products so WooCommerce treats them as “no processing needed,” without needing to set them as downloadable.
+
+This preserves WooCommerce’s logic (orders auto-complete only if all items report needs_processing = false) and avoids misuse of the “downloadable” flag.
+
+⸻
+
+Benefits
+	•	Immediate ticket delivery after payment, improving customer experience.
+	•	Reduces admin workload (no need to manually complete orders).
+	•	Keeps behavior consistent with what “virtual ticket” implies.
